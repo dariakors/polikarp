@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - 80:80
+
+    get_service:
+        build: ""
+        ports:
+        - "4000:8080"
+        volumes:
+        - .:/service
