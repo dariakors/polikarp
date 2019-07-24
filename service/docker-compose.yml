@@ -6,8 +6,8 @@ services:
             - 80:80
 
     get_service:
-        build: ""
+        build: .
         ports:
-        - "4000:8080"
+        - "8080:8080"
         volumes:
         - .:/service
