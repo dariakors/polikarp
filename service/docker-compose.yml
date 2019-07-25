@@ -4,23 +4,15 @@ services:
         image: nginx:latest
         container_name: nginx
         ports:
-            - 8080:80
+            - 80:80
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/default.conf
-        networks:
-            my-network:
         depends_on:
-            - get_service
+            - service
 
-    get_service:
+    service:
         build: .
         volumes:
             - .:/service
-
-        networks:
-            my-network:
-                aliases:
-                    - get-service
-
-networks:
-    my-network:
+        ports:
+            - 8080:8080
