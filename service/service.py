@@ -21,19 +21,23 @@ def hello():
 @app.route("/is_even", methods=["GET"])
 def is_even():
     number = request.args.getlist('number')
-    print(number)
 
     if len(number) > 1:
         return jsonify({"error": "Too much numbers"}), 400
 
-    if is_int(number[0]):
+    try:
 
-        if int(number[0]) % 2 == 0:
-            return jsonify(True)
+        if is_int(number[0]):
 
-        return jsonify(False)
+            if int(number[0]) % 2 == 0:
+                return jsonify(True)
 
-    return jsonify({"error": "Number must be integer"}), 415
+            return jsonify(False)
+
+        return jsonify({"error": "Number must be integer"}), 415
+
+    except IndexError:
+        return jsonify({"error": "You've missed the \"number\" parameter"}), 400
 
 
 if __name__ == "__main__":
