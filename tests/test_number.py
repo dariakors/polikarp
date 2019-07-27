@@ -45,7 +45,7 @@ class Tests(unittest.TestCase):
     def test_missed_number(self):
         response = requests.get('http://localhost/is_even?numb')
         self.assertEqual(400, response.status_code)
-        self.assertEqual("You've missed the \"number\" parameter", response.json()['error'])
+        self.assertEqual("You've missed the 'number' parameter", response.json()['error'])
 
     def test_invalid_not_int_number(self):
         response = requests.get('http://localhost/is_even?number=1&number=2')
