@@ -9,7 +9,9 @@ class Tests(unittest.TestCase):
         ['?number=1', False],
         ['?number=2', True],
         ['?number=-1', False],
-        ['?number=-2', True]
+        ['?number=-2', True],
+        ['?number=     -1    ', False],
+        ['?number=    2    ', True]
     ])
     def test_valid_data(self, query_string, result):
         response = requests.get('http://localhost/is_even' + query_string)
@@ -23,6 +25,7 @@ class Tests(unittest.TestCase):
         ["?number={1}"],
         ["?number={1: 2}"],
         ['?number=()'],
+        ['?number=(1)'],
         ["?number=(1, 2)"],
         ["?number"],
         ["?number="],
@@ -48,6 +51,11 @@ class Tests(unittest.TestCase):
         response = requests.get('http://localhost/is_even?number=1&number=2')
         self.assertEqual(400, response.status_code)
         self.assertEqual('Too much numbers', response.json()['error'])
+
+    def test_not_allowed_method(self):
+        response = requests.post('http://localhost/is_even?number=2')
+        self.assertEqual(405, response.status_code)
+        self.assertEqual('METHOD NOT ALLOWED', response.reason)
 
 
 if __name__ == '__main__':
