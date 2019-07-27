@@ -6,13 +6,11 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./service/nginx.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - service
 
     service:
-        build: .
-        volumes:
-            - .:/service
+        build: service
         ports:
             - 8080:8080
